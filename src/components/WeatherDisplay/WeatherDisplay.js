@@ -3,49 +3,50 @@ import './WeatherDisplay.css';
 import axios from "axios";
 
 const WeatherDisplay = props => {
-    const baseURL = "https://weatherapi-com.p.rapidapi.com/current.json";
-
-    const [weather, setWeather] = React.useState(null);
+    const baseURL = "https://weatherapi-com.p.rapidapi.com";
+    const getForecast = 'forecast.json';
+    const [forecastWeather, setForecastWeather] = React.useState(null);
 
     React.useEffect(() => {
-        axios.get(baseURL, {
+        axios.get(`${baseURL}/${getForecast}`, {
             params: {
                 q: 'Newcastle-upon-tyne',
+                days: 2,
             },
             headers: {
                 'X-RapidAPI-Key': `${process.env.REACT_APP_XRAPID_API_KEY}`,
                 'X-RapidAPI-Host': `${process.env.REACT_APP_XRAPID_API_HOST}`
             }
         }).then((response) => {
-            setWeather(response.data);
+            setForecastWeather(response.data);
         });
     }, []);
 
-    if (!weather) return null;
-
-    console.log(weather);
+    if (!forecastWeather) return null;
 
     return (
         <div>
             <h2>Weather now:</h2>
-            <p>Condition: {weather.current.condition.text}</p>
+            <p>Condition: {forecastWeather.current.condition.text}</p>
             <p>
                 Current temperature:&nbsp;
-                {weather.current.temp_c}<span>&#8451;</span> | &nbsp;
-                {weather.current.temp_f}<span>&#8457;</span>
+                {forecastWeather.current.temp_c}<span>&#8451;</span> | &nbsp;
+                {forecastWeather.current.temp_f}<span>&#8457;</span>
             </p>
 
             <h2>Weather tomorrow</h2>
-            <p>Condition: {weather.current.condition.text}</p>
-            <p>Min temperature:</p>
-            <p>Max temperature:</p>
+            <p>Condition: {forecastWeather.forecast.forecastday[1].day.condition.text}</p>
+            <p>
+                Min temperature:&nbsp;
+                {forecastWeather.forecast.forecastday[1].day.mintemp_c}<span>&#8451;</span> |&nbsp;
+                {forecastWeather.forecast.forecastday[1].day.mintemp_f}<span>&#8457;</span>
+            </p>
+            <p>
+                Max temperature:&nbsp;
+                {forecastWeather.forecast.forecastday[1].day.maxtemp_c}<span>&#8451;</span> |&nbsp;
+                {forecastWeather.forecast.forecastday[1].day.maxtemp_f}<span>&#8457;</span>
+            </p>
         </div>
-        // <div className="weather-display">
-        //     <h2>The weather today is mostly</h2>
-        //     <p>Weather data here</p>
-        //     <p>We recommend an indoor/outdoor event</p>
-        // </div>
-
     )
 };
 
