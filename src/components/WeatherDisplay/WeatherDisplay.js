@@ -14,8 +14,8 @@ const WeatherDisplay = props => {
                 days: '3'
             },
             headers: {
-                'X-RapidAPI-Key': '4994d0f4eamsh915abe15ed1c81bp17f661jsn9a5a2f95fd4a',
-                'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
+                'X-RapidAPI-Key': `${process.env.REACT_APP_XRAPID_API_KEY}`,
+                'X-RapidAPI-Host': `${process.env.REACT_APP_XRAPID_API_HOST}`
             }
         }).then((response) => {
             setWeather(response.data);
