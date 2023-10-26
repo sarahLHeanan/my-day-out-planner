@@ -10,8 +10,7 @@ const WeatherDisplay = props => {
     React.useEffect(() => {
         axios.get(baseURL, {
             params: {
-                q: 'London',
-                days: '3'
+                q: 'Newcastle-upon-tyne',
             },
             headers: {
                 'X-RapidAPI-Key': `${process.env.REACT_APP_XRAPID_API_KEY}`,
@@ -30,6 +29,16 @@ const WeatherDisplay = props => {
         <div>
             <h2>Weather now:</h2>
             <p>Condition: {weather.current.condition.text}</p>
+            <p>
+                Current temperature:&nbsp;
+                {weather.current.temp_c}<span>&#8451;</span> | &nbsp;
+                {weather.current.temp_f}<span>&#8457;</span>
+            </p>
+
+            <h2>Weather tomorrow</h2>
+            <p>Condition: {weather.current.condition.text}</p>
+            <p>Min temperature:</p>
+            <p>Max temperature:</p>
         </div>
         // <div className="weather-display">
         //     <h2>The weather today is mostly</h2>
