@@ -10,7 +10,7 @@ const WeatherDisplay = props => {
     React.useEffect(() => {
         axios.get(`${baseURL}/${getForecast}`, {
             params: {
-                q: 'Newcastle-upon-tyne',
+                q: 'Sunderland',
                 days: 2,
             },
             headers: {
@@ -22,10 +22,12 @@ const WeatherDisplay = props => {
         });
     }, []);
 
+    console.log(forecastWeather);
+
     if (!forecastWeather) return null;
 
     return (
-        <div>
+        <div className="bg-white">
             <h2>Weather now:</h2>
             <p>Condition: {forecastWeather.current.condition.text}</p>
             <p>
