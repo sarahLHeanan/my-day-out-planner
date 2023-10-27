@@ -7,6 +7,8 @@ const WeatherDisplay = props => {
     const [data1, setData1] = useState(null);
     const [data2, setData2] = useState(null);
 
+    const [latitude, setLatitude] = useState(null);
+
     const [isPending, startTransition] = useTransition();
 
     useEffect(() => {
@@ -14,7 +16,8 @@ const WeatherDisplay = props => {
             // First asynchronous operation
             fetchData1()
                 .then(result1 => {
-                    setData1(result1);
+                    console.log(result1);
+                    setLatitude(result1.coords.accuracy);
 
                     // Second asynchronous operation dependent on the first
                     return fetchData2(result1);
@@ -29,11 +32,11 @@ const WeatherDisplay = props => {
     }, [startTransition]);
 
     async function fetchData1() {
-        // Simulate an asynchronous operation
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve('Data from operation 1');
-            }, 2000);
+        return new Promise(function (resolve, reject) {
+            // Automatically passes the position
+            // to the callback
+            navigator.geolocation
+                .getCurrentPosition(resolve, reject);
         });
     }
 
@@ -49,8 +52,8 @@ const WeatherDisplay = props => {
     return (
         <div>
             <div>
-                {data1 ? (
-                    <div>Data from operation 1: {data1}</div>
+                {latitude ? (
+                    <div>Data from operation 1: {latitude}</div>
                 ) : isPending ? (
                     <div>Loading data 1...</div>
                 ) : (
