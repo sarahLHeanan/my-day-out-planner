@@ -1,29 +1,33 @@
-import { useState, useEffect, useTransition, startTransition } from 'react';
+import { useState, useEffect, useTransition } from 'react';
 import './WeatherDisplay.css';
 import axios from "axios";
 
 const WeatherDisplay = props => {
-
-    const [data1, setData1] = useState(null);
-    const [data2, setData2] = useState(null);
+    const baseURL = "https://weatherapi-com.p.rapidapi.com/forecast.json";
 
     const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
+
+    const [forecastWeather, setForecastWeather] = useState(null);
 
     const [isPending, startTransition] = useTransition();
 
     useEffect(() => {
         startTransition(() => {
             // First asynchronous operation
-            fetchData1()
-                .then(result1 => {
-                    console.log(result1);
-                    setLatitude(result1.coords.accuracy);
+            getGeolocationData()
+                .then(geolocation => {
+                    console.log(geolocation);
+                    setLatitude(geolocation.coords.latitude);
+                    setLongitude(geolocation.coords.longitude);
 
                     // Second asynchronous operation dependent on the first
-                    return fetchData2(result1);
+                    return fetchWeatherData(geolocation);
                 })
                 .then(result2 => {
-                    setData2(result2);
+                    console.log(result2);
+                    setForecastWeather(result2.data);
+                    // setData2(result2);
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -31,22 +35,27 @@ const WeatherDisplay = props => {
         });
     }, [startTransition]);
 
-    async function fetchData1() {
+    /*Get geolocation so we can get weather for the current location*/
+    async function getGeolocationData() {
         return new Promise(function (resolve, reject) {
-            // Automatically passes the position
-            // to the callback
+            // Automatically passes the position to the callback
             navigator.geolocation
                 .getCurrentPosition(resolve, reject);
         });
     }
 
-    async function fetchData2(data) {
-        // Simulate another asynchronous operation dependent on data from the first operation
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(`Data from operation 2 with ${data}`);
-            }, 1500);
-        });
+    /*Return weather data once the geolocation has resolved*/
+    async function fetchWeatherData(data) {
+        return axios.get(baseURL, {
+            params: {
+                q: `${latitude}, ${longitude}`,
+                days: 2,
+            },
+            headers: {
+                'X-RapidAPI-Key': `${process.env.REACT_APP_XRAPID_API_KEY}`,
+                'X-RapidAPI-Host': `${process.env.REACT_APP_XRAPID_API_HOST}`
+            }
+        })
     }
 
     return (
@@ -61,8 +70,11 @@ const WeatherDisplay = props => {
                 )}
             </div>
             <div>
-                {data2 ? (
-                    <div>Data from operation 2: {data2}</div>
+                {forecastWeather ? (
+                    <div>
+                        Data from operation 2:
+                        <p>Condition: {forecastWeather.current.condition.text}</p>
+                    </div>
                 ) : isPending ? (
                     <div>Loading data 2...</div>
                 ) : (
@@ -72,13 +84,6 @@ const WeatherDisplay = props => {
         </div>
     );
 
-
-    // const baseURL = "https://weatherapi-com.p.rapidapi.com/forecast.json";
-    // const [forecastWeather, setForecastWeather] = React.useState(null);
-    // const [loading, setLoading] = React.useState(true);
-    // const [latitude, setLatitude] = React.useState(null);
-    // const [longitude, setLongitude] = React.useState(null);
-    // const [location, setLocation] = React.useState(null);
     //
     // if (navigator.geolocation) {
     //     navigator.geolocation.getCurrentPosition(success, error);
@@ -86,37 +91,6 @@ const WeatherDisplay = props => {
     //     console.log("Geolocation not supported");
     // }
     //
-    // function success(position) {
-    //     setLatitude(position.coords.latitude);
-    //     setLongitude(position.coords.longitude);
-    //     setLocation(`${latitude},${longitude}`);
-    //     console.log(`location: ${latitude},${longitude}`);
-    //     setLoading(false);
-    // }
-    //
-    // function error() {
-    //     console.log("Unable to retrieve your location");
-    // }
-    //
-    // //@todo turn this into promise so we get location data before this is called
-    // React.useEffect(() => {
-    //     axios.get(baseURL, {
-    //         params: {
-    //             q: `${latitude}, ${longitude}`,
-    //             days: 2,
-    //         },
-    //         headers: {
-    //             'X-RapidAPI-Key': `${process.env.REACT_APP_XRAPID_API_KEY}`,
-    //             'X-RapidAPI-Host': `${process.env.REACT_APP_XRAPID_API_HOST}`
-    //         }
-    //     }).then((response) => {
-    //         setForecastWeather(response.data);
-    //         setLoading(false);
-    //     });
-    // }, []);
-    //
-    //
-    // if (!forecastWeather) return null;
     //
     // return (
     //     <div className="bg-white">
