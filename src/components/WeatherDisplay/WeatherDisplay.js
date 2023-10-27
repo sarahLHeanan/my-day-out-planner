@@ -27,7 +27,6 @@ const WeatherDisplay = props => {
                 .then(result2 => {
                     console.log(result2);
                     setForecastWeather(result2.data);
-                    // setData2(result2);
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -59,64 +58,43 @@ const WeatherDisplay = props => {
     }
 
     return (
-        <div>
-            <div>
-                {latitude ? (
-                    <div>Data from operation 1: {latitude}</div>
-                ) : isPending ? (
-                    <div>Loading data 1...</div>
-                ) : (
-                    <div>Error loading data 1</div>
-                )}
-            </div>
+        <div className="bg-white">
+            { !navigator.geolocation ? (
+                <p>Warning: geolocation not enabled, location automatically set to Newcastle Upon Tyne</p>
+            ) : ''}
             <div>
                 {forecastWeather ? (
                     <div>
-                        Data from operation 2:
+                        <h2>Weather now:</h2>
+                        <p>Location: {latitude},{longitude}</p>
                         <p>Condition: {forecastWeather.current.condition.text}</p>
+                        <p>
+                            Current temperature:&nbsp;
+                            {forecastWeather.current.temp_c}<span>&#8451;</span> | &nbsp;
+                            {forecastWeather.current.temp_f}<span>&#8457;</span>
+                        </p>
+
+                        <h2>Weather tomorrow</h2>
+                        <p>Condition: {forecastWeather.forecast.forecastday[1].day.condition.text}</p>
+                        <p>
+                            Min temperature:&nbsp;
+                            {forecastWeather.forecast.forecastday[1].day.mintemp_c}<span>&#8451;</span> |&nbsp;
+                            {forecastWeather.forecast.forecastday[1].day.mintemp_f}<span>&#8457;</span>
+                        </p>
+                        <p>
+                            Max temperature:&nbsp;
+                            {forecastWeather.forecast.forecastday[1].day.maxtemp_c}<span>&#8451;</span> |&nbsp;
+                            {forecastWeather.forecast.forecastday[1].day.maxtemp_f}<span>&#8457;</span>
+                        </p>
                     </div>
                 ) : isPending ? (
-                    <div>Loading data 2...</div>
+                    <div>Loading data 1...</div>
                 ) : (
-                    <div>Error loading data 2</div>
+                    <div>Error loading data</div>
                 )}
             </div>
         </div>
     );
-
-    //
-    // if (navigator.geolocation) {
-    //     navigator.geolocation.getCurrentPosition(success, error);
-    // } else {
-    //     console.log("Geolocation not supported");
-    // }
-    //
-    //
-    // return (
-    //     <div className="bg-white">
-    //         <h2>Weather now:</h2>
-    //         <p>Location: {latitude},{longitude}</p>
-    //         <p>Condition: {forecastWeather.current.condition.text}</p>
-    //         <p>
-    //             Current temperature:&nbsp;
-    //             {forecastWeather.current.temp_c}<span>&#8451;</span> | &nbsp;
-    //             {forecastWeather.current.temp_f}<span>&#8457;</span>
-    //         </p>
-    //
-    //         <h2>Weather tomorrow</h2>
-    //         <p>Condition: {forecastWeather.forecast.forecastday[1].day.condition.text}</p>
-    //         <p>
-    //             Min temperature:&nbsp;
-    //             {forecastWeather.forecast.forecastday[1].day.mintemp_c}<span>&#8451;</span> |&nbsp;
-    //             {forecastWeather.forecast.forecastday[1].day.mintemp_f}<span>&#8457;</span>
-    //         </p>
-    //         <p>
-    //             Max temperature:&nbsp;
-    //             {forecastWeather.forecast.forecastday[1].day.maxtemp_c}<span>&#8451;</span> |&nbsp;
-    //             {forecastWeather.forecast.forecastday[1].day.maxtemp_f}<span>&#8457;</span>
-    //         </p>
-    //     </div>
-    // )
 };
 
 export default WeatherDisplay;
