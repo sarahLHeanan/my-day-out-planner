@@ -7,6 +7,7 @@ const WeatherDisplay = props => {
 
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
+    const [location, setLocation] = useState(null);
 
     const [forecastWeather, setForecastWeather] = useState(null);
 
@@ -21,12 +22,15 @@ const WeatherDisplay = props => {
                     setLatitude(geolocation.coords.latitude);
                     setLongitude(geolocation.coords.longitude);
 
+                    if(latitude && longitude) {
+                        setLocation(`${latitude},${longitude}`);
+                    }
                     // Second asynchronous operation dependent on the first
                     return fetchWeatherData(geolocation);
                 })
-                .then(result2 => {
-                    console.log(result2);
-                    setForecastWeather(result2.data);
+                .then(weatherData => {
+                    console.log(weatherData);
+                    setForecastWeather(weatherData.data);
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -47,7 +51,7 @@ const WeatherDisplay = props => {
     async function fetchWeatherData(data) {
         return axios.get(baseURL, {
             params: {
-                q: `${latitude}, ${longitude}`,
+                q: location ?? 'Newcastle-upon-tyne',
                 days: 2,
             },
             headers: {
@@ -66,7 +70,7 @@ const WeatherDisplay = props => {
                 {forecastWeather ? (
                     <div>
                         <h2>Weather now:</h2>
-                        <p>Location: {latitude},{longitude}</p>
+                        <p>Location: {location ?? 'Newcastle Upon Tyne'}</p>
                         <p>Condition: {forecastWeather.current.condition.text}</p>
                         <p>
                             Current temperature:&nbsp;
@@ -88,7 +92,7 @@ const WeatherDisplay = props => {
                         </p>
                     </div>
                 ) : isPending ? (
-                    <div>Loading data 1...</div>
+                    <div>Loading data ...</div>
                 ) : (
                     <div>Error loading data</div>
                 )}
