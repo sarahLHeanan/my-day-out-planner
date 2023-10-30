@@ -11,6 +11,7 @@ const AddActivity = () => {
     const [enteredAgeRange, setAgeRange] = useState('');
     const [enteredCondition, setCondition] = useState('');
     const [enteredPrice, setPrice] = useState('');
+    const [enteredChildPrice, setChildPrice] = useState('');
 
 
     const addActivityHandler = (event) => {
@@ -20,6 +21,7 @@ const AddActivity = () => {
         console.log(enteredAgeRange);
         console.log(enteredCondition);
         console.log(enteredPrice);
+        console.log(enteredChildPrice);
     };
 
     const activityChangeHandler = (event) => {
@@ -40,6 +42,10 @@ const AddActivity = () => {
 
     const priceChangeHandler = (event) => {
         setPrice(event.target.value);
+    }
+
+    const childPriceChangeHandler = (event) => {
+        setChildPrice(event.target.value);
     }
 
     return (
@@ -82,13 +88,10 @@ const AddActivity = () => {
                     />
                     Outdoor
                 </label>
-                <label htmlFor="price">Price Range</label>
-                <select id="price" name="price" onChange={priceChangeHandler}>
-                    <option value="0">Free</option>
-                    <option value="10">Up to £10</option>
-                    <option value="20">Up to £20</option>
-                    <option value="21">£20+</option>
-                </select>
+                <label htmlFor="price">Price per adult</label>
+                <input type="number" id="price" name="price" onChange={priceChangeHandler}/>
+                <label htmlFor="price">Price per child</label>
+                <input type="number" id="childPrice" name="child-price" onChange={childPriceChangeHandler}/>
                 <button type="submit">Add Activity</button>
             </form>
         </Card>
