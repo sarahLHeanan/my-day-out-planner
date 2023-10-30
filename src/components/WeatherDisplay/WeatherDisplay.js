@@ -18,7 +18,7 @@ const WeatherDisplay = props => {
             // First asynchronous operation
             getGeolocationData()
                 .then(geolocation => {
-                    console.log(geolocation);
+                    // console.log(geolocation);
                     setLatitude(geolocation.coords.latitude);
                     setLongitude(geolocation.coords.longitude);
 
@@ -29,7 +29,7 @@ const WeatherDisplay = props => {
                     return fetchWeatherData(geolocation);
                 })
                 .then(weatherData => {
-                    console.log(weatherData);
+                    // console.log(weatherData);
                     setForecastWeather(weatherData.data);
                 })
                 .catch(error => {
