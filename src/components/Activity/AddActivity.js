@@ -17,6 +17,18 @@ const AddActivity = () => {
     const addActivityHandler = (event) => {
         event.preventDefault();
 
+        //validation
+        if(
+            enteredActivity.trim().length === 0 ||
+            enteredLocation.trim().length === 0 ||
+            enteredPrice.trim().length === 0 ||
+            enteredChildPrice.trim().length === 0
+        ){
+            console.log('invalid input');
+            return;
+        }
+
+
         console.log('activity ' + enteredActivity);
         console.log('location ' + enteredLocation);
         console.log('age range ' + enteredAgeRange);
@@ -30,7 +42,7 @@ const AddActivity = () => {
         setCondition('');
         setPrice('');
         setChildPrice('');
-
+        console.log('operation complete');
     };
 
     const activityChangeHandler = (event) => {
@@ -41,6 +53,7 @@ const AddActivity = () => {
         setLocation(event.target.value);
     }
 
+    // @todo sort issue where select box value not recorded if its not 'changed' (set default null value?)
     const ageRangeChangeHandler = (event) => {
         setAgeRange(event.target.value);
     }
