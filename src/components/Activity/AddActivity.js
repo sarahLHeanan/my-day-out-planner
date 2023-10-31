@@ -14,6 +14,8 @@ const AddActivity = (props) => {
     const [enteredPrice, setPrice] = useState('');
     const [enteredChildPrice, setChildPrice] = useState('');
 
+    const [error, setError] = useState();
+
 
     const addActivityHandler = (event) => {
         event.preventDefault();
@@ -26,6 +28,10 @@ const AddActivity = (props) => {
             enteredChildPrice.trim().length === 0
         ){
             console.log('invalid input');
+            setError({
+                title: 'Invalid input',
+                message: 'Please check your form for empty fields',
+            })
             return;
         }
 
@@ -37,8 +43,6 @@ const AddActivity = (props) => {
             enteredPrice,
             enteredChildPrice
         );
-
-
 
         console.log('activity ' + enteredActivity);
         console.log('location ' + enteredLocation);
@@ -81,9 +85,17 @@ const AddActivity = (props) => {
         setChildPrice(event.target.value);
     }
 
+    const errorHandler = () => {
+        setError(null);
+    }
+
     return (
         <div>
-            <ErrorModal title='An error' message='something went wrong'/>
+            {error && (<ErrorModal
+                title={error.title}
+                message={error.message}
+                onConfirm={errorHandler} />
+            )}
             <Card className={classes.input}>
                 <form onSubmit={addActivityHandler} className="mt-4">
                     <label htmlFor="name">Activity</label>
