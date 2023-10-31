@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import Card from '../UI/Card/Card.js';
 import classes from './activity.module.css';
 
-const AddActivity = () => {
+const AddActivity = (props) => {
 
     // @todo return state in one array instead of slices
     const [enteredActivity, setActivity] = useState('');
@@ -27,6 +27,16 @@ const AddActivity = () => {
             console.log('invalid input');
             return;
         }
+
+        props.onAddActivity(
+            enteredActivity,
+            enteredLocation,
+            enteredAgeRange,
+            enteredCondition,
+            enteredPrice,
+            enteredChildPrice
+        );
+
 
 
         console.log('activity ' + enteredActivity);
