@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
 import Card from '../UI/Card/Card.js';
+import ErrorModal from "../UI/ErrorModal";
 import classes from './activity.module.css';
 
 const AddActivity = (props) => {
@@ -81,52 +82,56 @@ const AddActivity = (props) => {
     }
 
     return (
-        <Card className={classes.input}>
-            <form onSubmit={addActivityHandler} className="mt-4">
-                <label htmlFor="name">Activity</label>
-                <input type="text" id="name" name="name" value={enteredActivity} onChange={activityChangeHandler}/>
+        <div>
+            <ErrorModal title='An error' message='something went wrong'/>
+            <Card className={classes.input}>
+                <form onSubmit={addActivityHandler} className="mt-4">
+                    <label htmlFor="name">Activity</label>
+                    <input type="text" id="name" name="name" value={enteredActivity} onChange={activityChangeHandler}/>
 
-                {/*@todo turn this into location selector by postcode*/}
-                <label htmlFor="location">Area</label>
-                <select id="location" name="location" value={enteredLocation} onChange={locationChangeHandler}>
-                    <option value="sunderland">Sunderland</option>
-                    <option value="newcastle">Newcastle</option>
-                    <option value="durham">Durham</option>
-                </select>
-                <label htmlFor="ageRange">Children's Age Range</label>
-                <select id="ageRange" name="ageRange" value={enteredAgeRange} onChange={ageRangeChangeHandler}>
-                    <option value="5">0-5</option>
-                    <option value="10">5-12</option>
-                    <option value="15">12-18</option>
-                </select>
-                <label>
-                    <input
-                        type="radio"
-                        name="condition"
-                        value="indoor"
-                        checked={true}
-                        className="form-check-input"
-                        onChange={conditionChangeHandler}
-                    />
-                    Indoor
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        name="condition"
-                        value="outdoor"
-                        className="form-check-input"
-                        onChange={conditionChangeHandler}
-                    />
-                    Outdoor
-                </label>
-                <label htmlFor="price">Price per adult</label>
-                <input type="number" id="price" name="price" value={enteredPrice} onChange={priceChangeHandler}/>
-                <label htmlFor="price">Price per child</label>
-                <input type="number" id="childPrice" name="child-price" value={enteredChildPrice} onChange={childPriceChangeHandler}/>
-                <button type="submit">Add Activity</button>
-            </form>
-        </Card>
+                    {/*@todo turn this into location selector by postcode*/}
+                    <label htmlFor="location">Area</label>
+                    <select id="location" name="location" value={enteredLocation} onChange={locationChangeHandler}>
+                        <option value="sunderland">Sunderland</option>
+                        <option value="newcastle">Newcastle</option>
+                        <option value="durham">Durham</option>
+                    </select>
+                    <label htmlFor="ageRange">Children's Age Range</label>
+                    <select id="ageRange" name="ageRange" value={enteredAgeRange} onChange={ageRangeChangeHandler}>
+                        <option value="5">0-5</option>
+                        <option value="10">5-12</option>
+                        <option value="15">12-18</option>
+                    </select>
+                    <label>
+                        <input
+                            type="radio"
+                            name="condition"
+                            value="indoor"
+                            checked={true}
+                            className="form-check-input"
+                            onChange={conditionChangeHandler}
+                        />
+                        Indoor
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="condition"
+                            value="outdoor"
+                            className="form-check-input"
+                            onChange={conditionChangeHandler}
+                        />
+                        Outdoor
+                    </label>
+                    <label htmlFor="price">Price per adult</label>
+                    <input type="number" id="price" name="price" value={enteredPrice} onChange={priceChangeHandler}/>
+                    <label htmlFor="price">Price per child</label>
+                    <input type="number" id="childPrice" name="child-price" value={enteredChildPrice} onChange={childPriceChangeHandler}/>
+                    <button type="submit">Add Activity</button>
+                </form>
+            </Card>
+        </div>
+
     )
 };
 
