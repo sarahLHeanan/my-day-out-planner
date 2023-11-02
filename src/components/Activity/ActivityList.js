@@ -2,7 +2,6 @@ import React from 'react';
 import Card from '../UI/Card/Card.js';
 
 const ActivityList = (props) => {
-    console.log('activities: ' + props.activities);
 
     return (
         <Card>
