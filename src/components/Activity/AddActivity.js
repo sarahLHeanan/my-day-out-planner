@@ -50,23 +50,16 @@ const AddActivity = (props) => {
             })
             return;
         }
-        //
-        // props.onAddActivity(
-        //     enteredActivity,
-        //     enteredLocation,
-        //     enteredAgeRange,
-        //     enteredCondition,
-        //     enteredPrice,
-        //     enteredChildPrice
-        // );
-        //
-        // console.log('activity ' + enteredActivity);
-        // console.log('location ' + enteredLocation);
-        // console.log('age range ' + enteredAgeRange);
-        // console.log('indoor or outdoor ' + enteredCondition);
-        // console.log('adult price ' + enteredPrice);
-        // console.log('child price ' + enteredChildPrice);
-        //
+
+        props.onAddActivity(
+            enteredActivity,
+            enteredLocation,
+            enteredAgeRange,
+            enteredCondition,
+            enteredPrice,
+            enteredChildPrice
+        );
+
         setActivity('');
         setLocation('');
         setAgeRange('');
