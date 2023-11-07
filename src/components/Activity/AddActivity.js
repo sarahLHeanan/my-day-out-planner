@@ -35,21 +35,21 @@ const AddActivity = (props) => {
 
         console.log('activities set');
         console.log(activities);
-        //
+
         // //validation
-        // if(
-        //     enteredActivity.trim().length === 0 ||
-        //     enteredLocation.trim().length === 0 ||
-        //     enteredPrice.trim().length === 0 ||
-        //     enteredChildPrice.trim().length === 0
-        // ){
-        //     console.log('invalid input');
-        //     setError({
-        //         title: 'Invalid input',
-        //         message: 'Please check your form for empty fields',
-        //     })
-        //     return;
-        // }
+        if(
+            enteredActivity.trim().length === 0 ||
+            enteredLocation.trim().length === 0 ||
+            enteredPrice.trim().length === 0 ||
+            enteredChildPrice.trim().length === 0
+        ){
+            console.log('invalid input');
+            setError({
+                title: 'Invalid input',
+                message: 'Please check your form for empty fields',
+            })
+            return;
+        }
         //
         // props.onAddActivity(
         //     enteredActivity,
