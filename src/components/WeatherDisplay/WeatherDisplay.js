@@ -62,61 +62,44 @@ const WeatherDisplay = props => {
     }
 
     return (
-        <div className="bg-white grid grid-cols-2 gap-4 place-content-center m-12 p-4">
-            {/*<div>*/}
-            {/*    { !navigator.geolocation ? (*/}
-            {/*        <p>Warning: geolocation not enabled, location automatically set to Newcastle Upon Tyne</p>*/}
-            {/*    ) : ''}*/}
-            {/*</div>*/}
-            <div className="grid place-content-center rounded-lg bg-sky-400 text-white text-center py-4">
-                <h2 className="text-xl font-bold mb-8">Weather today</h2>
-                <p>Icon here</p>
-                <p className="text-xl font-bold mt-8">Temperature C/Temperature F</p>
-                <p>Condition</p>
-            </div>
-            <div className="grid place-content-center rounded-lg bg-sky-600 text-white text-center py-4">
-                <h2 className="text-xl font-bold mb-8">Weather tomorrow</h2>
-                <p>Icon here</p>
-                <p className="text-xl font-bold mt-8">Temperature C/Temperature F</p>
-                <p>Condition</p>
-            </div>
+        <div className="">
+            {forecastWeather ? (
+                <div className="bg-white grid grid-cols-2 gap-4 place-content-center m-12 p-4">
+                    <div className="grid place-content-center rounded-lg bg-sky-400 text-white text-center py-4">
+                        <h2 className="text-xl font-bold mb-8">Weather today</h2>
+                        <p>Location: {location ?? 'Newcastle Upon Tyne'}</p>
+                        <p>Icon here</p>
+                        <p className="text-xl font-bold mt-8">
+                            {forecastWeather.current.temp_c}<span>&#8451;</span> | &nbsp;
+                            {forecastWeather.current.temp_f}<span>&#8457;</span>
+                        </p>
+                        <p>{forecastWeather.forecast.forecastday[0].day.condition.text}</p>
+                    </div>
+                    <div className="grid place-content-center rounded-lg bg-sky-600 text-white text-center py-4">
+                        <h2 className="text-xl font-bold mb-8">Weather tomorrow</h2>
+                        <p>Location: {location ?? 'Newcastle Upon Tyne'}</p>
+                        <p>Icon here</p>
+                        <p className="text-xl font-bold mt-8">
+                             <p>
+                                Min temp:&nbsp;
+                                {forecastWeather.forecast.forecastday[1].day.mintemp_c}<span>&#8451;</span> |&nbsp;
+                                {forecastWeather.forecast.forecastday[1].day.mintemp_f}<span>&#8457;</span>
+                            </p>
+                            <p>
+                                Max temp:&nbsp;
+                                {forecastWeather.forecast.forecastday[1].day.maxtemp_c}<span>&#8451;</span> |&nbsp;
+                                {forecastWeather.forecast.forecastday[1].day.maxtemp_f}<span>&#8457;</span>
+                            </p>
+                        </p>
+                        <p>{forecastWeather.forecast.forecastday[1].day.condition.text}</p>
+                    </div>
+                </div>
+            ) : isPending ? (
+                <div>Loading data ...</div>
+            ) : (
+                <div>Error loading data</div>
+            )}
         </div>
-        // <div className="bg-white">
-        //     { !navigator.geolocation ? (
-        //         <p>Warning: geolocation not enabled, location automatically set to Newcastle Upon Tyne</p>
-        //     ) : ''}
-        //     <div>
-        //         {forecastWeather ? (
-        //             <div>
-        //                 <h2>Weather now:</h2>
-        //                 <p>Location: {location ?? 'Newcastle Upon Tyne'}</p>
-        //                 <p>Condition: {forecastWeather.current.condition.text}</p>
-        //                 <p>
-        //                     Current temperature:&nbsp;
-        //                     {forecastWeather.current.temp_c}<span>&#8451;</span> | &nbsp;
-        //                     {forecastWeather.current.temp_f}<span>&#8457;</span>
-        //                 </p>
-        //
-        //                 <h2>Weather tomorrow</h2>
-        //                 <p>Condition: {forecastWeather.forecast.forecastday[1].day.condition.text}</p>
-        //                 <p>
-        //                     Min temperature:&nbsp;
-        //                     {forecastWeather.forecast.forecastday[1].day.mintemp_c}<span>&#8451;</span> |&nbsp;
-        //                     {forecastWeather.forecast.forecastday[1].day.mintemp_f}<span>&#8457;</span>
-        //                 </p>
-        //                 <p>
-        //                     Max temperature:&nbsp;
-        //                     {forecastWeather.forecast.forecastday[1].day.maxtemp_c}<span>&#8451;</span> |&nbsp;
-        //                     {forecastWeather.forecast.forecastday[1].day.maxtemp_f}<span>&#8457;</span>
-        //                 </p>
-        //             </div>
-        //         ) : isPending ? (
-        //             <div>Loading data ...</div>
-        //         ) : (
-        //             <div>Error loading data</div>
-        //         )}
-        //     </div>
-        // </div>
     );
 };
 
