@@ -19,12 +19,10 @@ const WeatherDisplay = props => {
             getGeolocationData()
                 .then(geolocation => {
                     // console.log(geolocation);
-                    setLatitude(geolocation.coords.latitude);
-                    setLongitude(geolocation.coords.longitude);
+                    setLatitude(geolocation.coords.latitude.toFixed(2));
+                    setLongitude(geolocation.coords.longitude.toFixed(2));
 
-                    if(latitude && longitude) {
-                        setLocation(`${latitude},${longitude}`);
-                    }
+                    console.log('type ' + typeof latitude);
                     // Second asynchronous operation dependent on the first
                     return fetchWeatherData(geolocation);
                 })
@@ -65,20 +63,23 @@ const WeatherDisplay = props => {
         <div className="">
             {forecastWeather ? (
                 <div className="bg-white grid grid-cols-2 gap-4 place-content-center m-12 p-4">
-                    <div className="grid place-content-center rounded-lg bg-sky-400 text-white text-center py-4">
+                    <div className="col-span-2">
+                        <p className="text-center text-xl font-bold">Location: {latitude ? `${latitude}, ${longitude}` : 'Newcastle Upon Tyne'}</p>
+                    </div>
+                    <div className="grid rounded-lg bg-sky-400 text-white text-center py-4">
                         <h2 className="text-xl font-bold mb-8">Weather today</h2>
-                        <p>Location: {location ?? 'Newcastle Upon Tyne'}</p>
-                        <p>Icon here</p>
+                        <img src={forecastWeather.forecast.forecastday[0].day.condition.icon}
+                             className="mt-8 m-auto"/>
                         <p className="text-xl font-bold mt-8">
                             {forecastWeather.current.temp_c}<span>&#8451;</span> | &nbsp;
                             {forecastWeather.current.temp_f}<span>&#8457;</span>
                         </p>
                         <p>{forecastWeather.forecast.forecastday[0].day.condition.text}</p>
                     </div>
-                    <div className="grid place-content-center rounded-lg bg-sky-600 text-white text-center py-4">
+                    <div className="grid rounded-lg bg-sky-600 text-white text-center py-4">
                         <h2 className="text-xl font-bold mb-8">Weather tomorrow</h2>
-                        <p>Location: {location ?? 'Newcastle Upon Tyne'}</p>
-                        <p>Icon here</p>
+                        <img src={forecastWeather.forecast.forecastday[1].day.condition.icon}
+                             className="mt-8 m-auto"/>
                         <p className="text-xl font-bold mt-8">
                              <p>
                                 Min temp:&nbsp;
