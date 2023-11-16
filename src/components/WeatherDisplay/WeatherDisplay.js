@@ -69,7 +69,7 @@ const WeatherDisplay = props => {
                     <div className="grid rounded-lg bg-sky-400 text-white text-center py-4">
                         <h2 className="text-xl font-bold mb-8">Weather today</h2>
                         <img src={forecastWeather.forecast.forecastday[0].day.condition.icon}
-                             className="mt-8 m-auto"/>
+                             className="mt-8 m-auto" alt="weather icon today"/>
                         <p className="text-xl font-bold mt-8">
                             {forecastWeather.current.temp_c}<span>&#8451;</span> | &nbsp;
                             {forecastWeather.current.temp_f}<span>&#8457;</span>
@@ -79,7 +79,7 @@ const WeatherDisplay = props => {
                     <div className="grid rounded-lg bg-sky-600 text-white text-center py-4">
                         <h2 className="text-xl font-bold mb-8">Weather tomorrow</h2>
                         <img src={forecastWeather.forecast.forecastday[1].day.condition.icon}
-                             className="mt-8 m-auto"/>
+                             className="mt-8 m-auto" alt="weather icon tomorrow"/>
                         <p className="text-xl font-bold mt-8">
                              <p>
                                 Min temp:&nbsp;
