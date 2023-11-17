@@ -110,6 +110,7 @@ const AddActivity = (props) => {
                                             value={enteredLocation}
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                                             onChange={(e) => setLocation(e.target.value)}>
+                                        <option value="">Please choose an area</option>
                                         <option value="sunderland">Sunderland</option>
                                         <option value="newcastle">Newcastle</option>
                                         <option value="durham">Durham</option>
@@ -125,9 +126,10 @@ const AddActivity = (props) => {
                                             value={enteredAgeRange}
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                                             onChange={(e) => setAgeRange(e.target.value)}>
-                                                <option value="5">0-5</option>
-                                                <option value="10">5-12</option>
-                                                <option value="15">12-18</option>
+                                        <option value="">Please choose an age range</option>
+                                        <option value="5">0-5</option>
+                                        <option value="10">5-12</option>
+                                        <option value="15">12-18</option>
                                     </select>
                                 </div>
                             </div>
@@ -137,7 +139,7 @@ const AddActivity = (props) => {
                                            name="condition"
                                            type="radio"
                                            value="indoor"
-                                           checked={true}
+                                           checked={enteredCondition === "indoor"}
                                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                            onChange={(e) => setCondition(e.target.value)}/>
                                     <label htmlFor="indoor"
