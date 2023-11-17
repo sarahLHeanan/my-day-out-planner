@@ -62,7 +62,7 @@ const WeatherDisplay = props => {
     return (
         <div className="">
             {forecastWeather ? (
-                <div className="bg-white grid grid-cols-2 gap-4 place-content-center m-12 p-4">
+                <div className="bg-white rounded-md grid grid-cols-2 gap-4 place-content-center m-12 p-4">
                     <div className="col-span-2">
                         <p className="text-center text-xl font-bold">Location: {latitude ? `${latitude}, ${longitude}` : 'Newcastle Upon Tyne'}</p>
                     </div>
@@ -96,9 +96,9 @@ const WeatherDisplay = props => {
                     </div>
                 </div>
             ) : isPending ? (
-                <div>Loading data ...</div>
+                <div className="text-center">Loading data ...</div>
             ) : (
-                <div>Error loading data</div>
+                <div className="text-center">Error loading data</div>
             )}
         </div>
     );
