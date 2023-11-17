@@ -26,8 +26,8 @@ function App() {
         <div className="h-full bg-gradient-to-br from-cyan-200 to-slate-50 py-4 text-2xl font-extrabold">
             <h1 className="text-center">My Day Out Planner</h1>
             <WeatherDisplay/>
-            <AddActivity onAddActivity={addActivityHandler} />
             <ActivityList activities={activityList} />
+            <AddActivity onAddActivity={addActivityHandler} />
         </div>
         );
     }
