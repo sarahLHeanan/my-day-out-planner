@@ -7,12 +7,13 @@ import ActivityList from "./components/Activity/ActivityList";
 function App() {
     const [activityList, setActivityList] = useState([]);
 
-    const addActivityHandler = (name, location, ageRange, condition, price, childPrice) => {
+    const addActivityHandler = (name, location, area, ageRange, condition, price, childPrice) => {
         console.log('calling add activity handler');
         setActivityList((prevActivityList) => {
            return [...prevActivityList, {
                name: name,
                location: location,
+               area: area,
                ageRange: ageRange,
                condition: condition,
                price: price,

@@ -11,6 +11,7 @@ const AddActivity = (props) => {
     //individual field values
     const [enteredActivity, setActivity] = useState('');
     const [enteredLocation, setLocation] = useState('');
+    const [enteredArea, setArea] = useState('');
     const [enteredAgeRange, setAgeRange] = useState('');
     const [enteredCondition, setCondition] = useState('');
     const [enteredPrice, setPrice] = useState('');
@@ -26,6 +27,7 @@ const AddActivity = (props) => {
             {
                 name: enteredActivity,
                 location: enteredLocation,
+                area: enteredArea,
                 ageRange: enteredAgeRange,
                 condition: enteredCondition,
                 price: enteredPrice,
@@ -40,6 +42,7 @@ const AddActivity = (props) => {
         if(
             enteredActivity.trim().length === 0 ||
             enteredLocation.trim().length === 0 ||
+            enteredArea.trim().length === 0 ||
             enteredPrice.trim().length === 0 ||
             enteredChildPrice.trim().length === 0
         ){
@@ -54,6 +57,7 @@ const AddActivity = (props) => {
         props.onAddActivity(
             enteredActivity,
             enteredLocation,
+            enteredArea,
             enteredAgeRange,
             enteredCondition,
             enteredPrice,
@@ -62,6 +66,7 @@ const AddActivity = (props) => {
 
         setActivity('');
         setLocation('');
+        setArea('');
         setAgeRange('');
         setCondition('');
         setPrice('');
@@ -102,14 +107,28 @@ const AddActivity = (props) => {
                                 </div>
                             </div>
                             <div className="sm:col-span-6">
-                                <label htmlFor="location"
+                                <label htmlFor="name"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Location
+                                </label>
+                                <div className="mt-2">
+                                    <input type="text"
+                                        name="name"
+                                        value={enteredLocation}
+                                        onChange={(e) => setLocation(e.target.value)}
+                                        autoComplete="activity-name"
+                                        className="w-3/4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                </div>
+                            </div>
+                            <div className="sm:col-span-6">
+                                <label htmlFor="area"
                                        className="block text-sm font-medium leading-6 text-gray-900">Area</label>
                                 <div className="mt-2">
-                                    <select id="location"
-                                            name="location"
-                                            value={enteredLocation}
+                                    <select id="area"
+                                            name="area"
+                                            value={enteredArea}
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                                            onChange={(e) => setLocation(e.target.value)}>
+                                            onChange={(e) => setArea(e.target.value)}>
                                         <option value="">Please choose an area</option>
                                         <option value="sunderland">Sunderland</option>
                                         <option value="newcastle">Newcastle</option>
